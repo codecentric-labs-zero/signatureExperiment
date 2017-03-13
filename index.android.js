@@ -12,15 +12,23 @@ import {
   View
 } from 'react-native';
 import SignatureCapture from 'react-native-signature-capture'
+var SignaturePad = require('react-native-signature-pad');
 
 export default class signature extends Component {
   render() {
+      _signaturePadError = (error) => {
+          console.error(error);
+      };
+
+      _signaturePadChange = ({base64DataUrl}) => {
+          console.log("Got new signature: " + base64DataUrl);
+      };
     return (
       <View style={{flex: 1}}>
 
-        <SignatureCapture
-            style={{flex:1}}
-        showNativeButtons={true}/>
+        <SignaturePad onError={this._signaturePadError}
+                      onChange={this._signaturePadChange}
+                      style={{flex: 1, backgroundColor: 'white'}}/>
       </View>
     );
   }
